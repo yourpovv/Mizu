@@ -113,7 +113,7 @@ export async function handleEmbedModalSubmit(
     res.status(200).json({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
-        content: "preview posted above — keep it or delete it:",
+        content: "preview posted above:",
         flags: InteractionResponseFlags.EPHEMERAL,
         components: [buildConfirmButtons({ authorId, channelId, messageId })],
       },
@@ -146,10 +146,10 @@ export async function handleEmbedConfirm(
 
   try {
     if (keep) {
-      replyEphemeral(res, "kept ✅");
+      replyEphemeral(res, "kept");
     } else {
       await deleteMessage(ids.channelId, ids.messageId);
-      replyEphemeral(res, "deleted ❌");
+      replyEphemeral(res, "deleted");
     }
   } catch (error) {
     console.error("[embed] confirm failed", error);

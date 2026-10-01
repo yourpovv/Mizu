@@ -7,7 +7,7 @@ export interface ColorOption {
 export const COLOR_CUSTOM_ID = "color_select";
 
 export const COLOR_MENU = {
-  color: 0xff69b4,
+  color: 0x8b9cf6,
   title: "🎨 pick your color role",
   description: "choose your favorite color from the dropdown below",
   placeholder: "pick a color",

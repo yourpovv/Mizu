@@ -1,4 +1,4 @@
-import type { SlashCommandDefinition } from "./ping.js";
+import type { SlashCommandDefinition } from "./credits.js";
 
 export const ColorPicker: SlashCommandDefinition = {
   name: "color-picker",

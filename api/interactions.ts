@@ -5,12 +5,22 @@ import {
   verifyKey,
 } from "discord-interactions";
 import { config as discordConfig } from "../src/config.js";
-import { Ping } from "../src/lib/ping.js";
+import { buildCreditsMessage } from "../src/lib/credits.js";
 import { buildColorPicker, COLOR_CUSTOM_ID } from "../src/lib/colors.js";
 import {
   handleColorSelect,
   type ColorSelectInteraction,
 } from "../src/lib/color-select.js";
+import {
+  handleEmbedCommand,
+  handleEmbedConfirm,
+  handleEmbedModalSubmit,
+} from "../src/lib/embed-flow.js";
+import {
+  EMBED_DELETE_PREFIX,
+  EMBED_KEEP_PREFIX,
+  EMBED_MODAL_PREFIX,
+} from "../src/lib/embeds.js";
 
 export const config = {
   api: { bodyParser: false },
@@ -37,8 +47,18 @@ async function readRawBody(req: VercelRequest): Promise<string> {
 interface DiscordInteraction {
   type: number;
   guild_id?: string;
+  channel_id?: string;
   member?: { user: { id: string } };
-  data?: { name?: string; custom_id?: string; values?: string[] };
+  user?: { id: string };
+  data?: {
+    name?: string;
+    custom_id?: string;
+    values?: string[];
+    options?: Array<{ name: string; value?: string }>;
+    components?: Array<{
+      components?: Array<{ custom_id?: string; value?: string }>;
+    }>;
+  };
 }
 
 function parseInteraction(rawBody: string): DiscordInteraction | null {
@@ -78,10 +98,10 @@ const componentHandlers: Record<
   [COLOR_CUSTOM_ID]: handleColorSelect,
 };
 
-function handlePing(res: VercelResponse): void {
+function handleCredits(res: VercelResponse): void {
   res.status(200).json({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-    data: { content: Ping() },
+    data: buildCreditsMessage(),
   });
 }
 
@@ -116,9 +136,9 @@ export default async function handler(
 
   if (
     interaction.type === InteractionType.APPLICATION_COMMAND &&
-    interaction.data?.name === "ping"
+    interaction.data?.name === "credits"
   ) {
-    handlePing(res);
+    handleCredits(res);
     return;
   }
 
@@ -130,12 +150,35 @@ export default async function handler(
     return;
   }
 
+  if (
+    interaction.type === InteractionType.APPLICATION_COMMAND &&
+    interaction.data?.name === "embed"
+  ) {
+    handleEmbedCommand(interaction, res);
+    return;
+  }
+
+  if (
+    interaction.type === InteractionType.MODAL_SUBMIT &&
+    interaction.data?.custom_id?.startsWith(EMBED_MODAL_PREFIX)
+  ) {
+    await handleEmbedModalSubmit(interaction, res);
+    return;
+  }
+
   if (interaction.type === InteractionType.MESSAGE_COMPONENT) {
-    const handleComponent = interaction.data?.custom_id
-      ? componentHandlers[interaction.data.custom_id]
-      : undefined;
+    const customId = interaction.data?.custom_id ?? "";
+    const handleComponent = componentHandlers[customId];
     if (handleComponent) {
       await handleComponent(interaction, res);
+      return;
+    }
+    if (customId.startsWith(EMBED_KEEP_PREFIX)) {
+      await handleEmbedConfirm(interaction, res, true);
+      return;
+    }
+    if (customId.startsWith(EMBED_DELETE_PREFIX)) {
+      await handleEmbedConfirm(interaction, res, false);
       return;
     }
   }

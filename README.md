@@ -73,8 +73,9 @@ Set each role to its hex in Server Settings > Roles:
 
 | command         | description                              |
 |-----------------|------------------------------------------|
-| `/ping`         | replies with `pong !!`                   |
+| `/credits`      | shows who created Mizu                    |
 | `/color-picker` | posts the color role picker (admin only) |
+| `/embed`        | builds a custom embed with preview (Manage Server only) |
 
 New or renamed commands take up to an hour to appear (usually minutes). if one is missing, restart Discord to refresh the command list (note admin commands are ran by server admins)
 
@@ -84,6 +85,8 @@ New or renamed commands take up to an hour to appear (usually minutes). if one i
 - [discord-interactions](https://docs.discord.com/developers/interactions/overview) (signature verification + interaction types)
 - [@vercel/node](https://vercel.com/docs/functions/runtimes/node-js) (serverless functions)
 - [tsx](https://www.tsx.com/) (dev runner for the register script + tests)
+
+- Whole bot uses one serveress function: `api/interactions.ts` which routes every command, button, and modal (don't add a second `api/*.ts` per feature just route it instead). funcs will only run when Discord calls it
 
 ## required gateway intents
 

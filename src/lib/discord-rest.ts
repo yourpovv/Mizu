@@ -58,6 +58,29 @@ export async function addRoleToMember(
   );
 }
 
+export async function postMessage(
+  channelId: string,
+  payload: unknown,
+): Promise<string> {
+  const response = await discordFetch("post message", `/channels/${channelId}/messages`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  const message = (await response.json()) as { id?: string };
+  if (!message.id) {
+    throw new DiscordRestError("post message", 200, "missing message id");
+  }
+  return message.id;
+}
+
+export async function deleteMessage(channelId: string, messageId: string): Promise<void> {
+  await discordFetch(
+    "delete message",
+    `/channels/${channelId}/messages/${messageId}`,
+    { method: "DELETE" },
+  );
+}
+
 export async function removeRolesFromMember(
   guildId: string,
   userId: string,

@@ -4,7 +4,7 @@ export interface SlashCommandDefinition {
   default_member_permissions?: string;
 }
 
-export const Ping: SlashCommandDefinition = {
-  name: "ping",
-  description: "Replies with pong !!",
+export const Credits: SlashCommandDefinition = {
+  name: "credits",
+  description: "Shows who created Mizu",
 };

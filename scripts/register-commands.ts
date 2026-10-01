@@ -1,5 +1,5 @@
-import { Ping } from "../src/commands/ping";
-import { requiredEnv } from "../src/lib/env";
+import { Ping } from "../src/commands/ping.js";
+import { requiredEnv } from "../src/lib/env.js";
 
 async function registerCommands(): Promise<void> {
   const appId = requiredEnv("DISCORD_APP_ID");

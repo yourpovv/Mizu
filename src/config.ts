@@ -1,4 +1,4 @@
-import { requiredEnv } from "./lib/env";
+import { requiredEnv } from "./lib/env.js";
 
 export const config = {
   publicKey: requiredEnv("DISCORD_PUBLIC_KEY"),

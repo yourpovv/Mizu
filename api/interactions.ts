@@ -4,8 +4,8 @@ import {
   InteractionType,
   verifyKey,
 } from "discord-interactions";
-import { config as discordConfig } from "../src/config";
-import { Ping } from "../src/lib/ping";
+import { config as discordConfig } from "../src/config.js";
+import { Ping } from "../src/lib/ping.js";
 
 export const config = {
   api: { bodyParser: false },

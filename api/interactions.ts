@@ -12,17 +12,21 @@ export const config = {
 };
 
 async function readRawBody(req: VercelRequest): Promise<string> {
+  const chunks: Buffer[] = [];
+  for await (const chunk of req) {
+    chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+  }
+  const streamed = Buffer.concat(chunks).toString("utf8");
+  if (streamed.length > 0) {
+    return streamed;
+  }
   if (typeof req.body === "string" && req.body.length > 0) {
     return req.body;
   }
   if (req.body !== undefined && typeof req.body === "object" && req.body !== null) {
     return JSON.stringify(req.body);
   }
-  const chunks: Buffer[] = [];
-  for await (const chunk of req) {
-    chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
-  }
-  return Buffer.concat(chunks).toString("utf8");
+  return streamed;
 }
 
 interface DiscordInteraction {

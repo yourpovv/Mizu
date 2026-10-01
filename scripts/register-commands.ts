@@ -1,4 +1,5 @@
 import { Ping } from "../src/commands/ping.js";
+import { ColorPicker } from "../src/commands/colors.js";
 import { requiredEnv } from "../src/lib/env.js";
 
 async function registerCommands(): Promise<void> {
@@ -13,7 +14,7 @@ async function registerCommands(): Promise<void> {
         Authorization: `Bot ${botToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify([Ping]),
+      body: JSON.stringify([Ping, ColorPicker]),
     },
   );
 
@@ -22,10 +23,10 @@ async function registerCommands(): Promise<void> {
     throw new Error(`Command registration failed: ${detail}`);
   }
 
-  console.log("Registered /ping");
+  console.log("Registered /ping and /color-picker");
 }
 
 registerCommands().catch((error: unknown) => {
-  console.error("Failed to register /ping:", error);
+  console.error("Failed to register commands:", error);
   process.exitCode = 1;
 });

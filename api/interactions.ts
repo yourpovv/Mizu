@@ -6,6 +6,11 @@ import {
 } from "discord-interactions";
 import { config as discordConfig } from "../src/config.js";
 import { Ping } from "../src/lib/ping.js";
+import { buildColorPicker, COLOR_CUSTOM_ID } from "../src/lib/colors.js";
+import {
+  handleColorSelect,
+  type ColorSelectInteraction,
+} from "../src/lib/color-select.js";
 
 export const config = {
   api: { bodyParser: false },
@@ -31,7 +36,9 @@ async function readRawBody(req: VercelRequest): Promise<string> {
 
 interface DiscordInteraction {
   type: number;
-  data?: { name?: string };
+  guild_id?: string;
+  member?: { user: { id: string } };
+  data?: { name?: string; custom_id?: string; values?: string[] };
 }
 
 function parseInteraction(rawBody: string): DiscordInteraction | null {
@@ -56,6 +63,20 @@ async function isValidRequest(
     return false;
   }
 }
+
+function handleColorsCommand(res: VercelResponse): void {
+  res.status(200).json({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: buildColorPicker(),
+  });
+}
+
+const componentHandlers: Record<
+  string,
+  (interaction: ColorSelectInteraction, res: VercelResponse) => Promise<void>
+> = {
+  [COLOR_CUSTOM_ID]: handleColorSelect,
+};
 
 function handlePing(res: VercelResponse): void {
   res.status(200).json({
@@ -99,6 +120,24 @@ export default async function handler(
   ) {
     handlePing(res);
     return;
+  }
+
+  if (
+    interaction.type === InteractionType.APPLICATION_COMMAND &&
+    interaction.data?.name === "color-picker"
+  ) {
+    handleColorsCommand(res);
+    return;
+  }
+
+  if (interaction.type === InteractionType.MESSAGE_COMPONENT) {
+    const handleComponent = interaction.data?.custom_id
+      ? componentHandlers[interaction.data.custom_id]
+      : undefined;
+    if (handleComponent) {
+      await handleComponent(interaction, res);
+      return;
+    }
   }
 
   res.status(400).json({ error: "Unknown interaction" });

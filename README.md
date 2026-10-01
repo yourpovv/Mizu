@@ -21,15 +21,51 @@
 DISCORD_PUBLIC_KEY=
 DISCORD_APP_ID=
 DISCORD_BOT_TOKEN=
+
+# Color role IDs for the color picker
+RED_ROLE=
+ORANGE_ROLE=
+YELLOW_ROLE=
+GREEN_ROLE=
+BLUE_ROLE=
+PURPLE_ROLE=
+MAGENTA_ROLE=
+CYAN_ROLE=
+PINK_ROLE=
+LAVENDER_ROLE=
+BLACK_ROLE=
+WHITE_ROLE=
+GREY_ROLE=
 ```
+
+### color role palette
+
+Set each role to its hex in Server Settings → Roles (picked for readability on both light and dark Discord themes):
+
+| role    | hex       |
+|---------|-----------|
+| Red     | `#ED4245` |
+| Orange  | `#E67E22` |
+| Yellow  | `#D4AC0D` |
+| Green   | `#27AE60` |
+| Blue    | `#0099FF` |
+| Purple  | `#A855F7` |
+| Magenta | `#D946EF` |
+| Cyan    | `#00BCD4` |
+| Pink    | `#E84393` |
+| Lavender| `#8B7CF6` |
+| Black   | `#000000` |
+| White   | `#FFFFFF` |
+| Grey    | `#808080` |
 
 ## commands
 
 ### utility
 
-| command   | description            |
-|-----------|------------------------|
-| `/ping`   | replies with `pong !!` |
+| command         | description                              |
+|-----------------|------------------------------------------|
+| `/ping`         | replies with `pong !!`                   |
+| `/color-picker` | posts the color role picker (admin only) |
 
 ## stack
 
@@ -48,11 +84,11 @@ none since Discord sends interactions over HTTP `POST` to `/api/interactions` wh
 
 ## required bot permissions
 
-- N/A as of now
+- `/color-picker` needs **Manage Roles**, and the bot's role must sit **above** the color roles
 
-| permission | used by                                                       |
-|------------|---------------------------------------------------------------|
-| N/A        | not applicable yet (`/ping` needs nothing beyond being added) |
+| permission     | used by         |
+|----------------|-----------------|
+| Manage Roles   | `/color-picker` |
 
 ---
 
@@ -60,4 +96,4 @@ none since Discord sends interactions over HTTP `POST` to `/api/interactions` wh
 
 [YourPOV](https://yourpov.dev/)
 
-> **Last Updated:** September 30th, 2026
+> **Last Updated:** October 1st, 2026

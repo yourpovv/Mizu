@@ -3,7 +3,7 @@ export const YourPOV    = "1470172610636808425";
 export const githubRepo = "https://github.com/yourpovv/Mizu";
 
 export interface CreditsMessage {
-  embeds: Array<{ title: string; description: string; color: number }>;
+  embeds: Array<{ title: string; description: string; color: number; image: { url: string } }>;
 }
 
 export function buildCreditsMessage(): CreditsMessage {
@@ -22,6 +22,7 @@ export function buildCreditsMessage(): CreditsMessage {
           "꒷︶♡︶꒷",
         ].join("\n"),
         color: 0x8c96ff,
+        image: { url: "https://i.imgur.com/QzpDtlI.png" },
       },
     ],
   };

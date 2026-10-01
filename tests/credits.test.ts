@@ -24,5 +24,6 @@ describe("buildCreditsMessage", () => {
     assert.ok(embed.description.includes(YourPOV));
     assert.ok(embed.description.includes("TypeScript"));
     assert.ok(embed.description.includes(githubRepo));
+    assert.deepEqual(embed.image, { url: "https://i.imgur.com/QzpDtlI.png" });
   });
 });

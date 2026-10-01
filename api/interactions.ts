@@ -46,7 +46,11 @@ async function isValidRequest(
   if (typeof signature !== "string" || typeof timestamp !== "string") {
     return false;
   }
-  return verifyKey(rawBody, signature, timestamp, discordConfig.publicKey);
+  try {
+    return await verifyKey(rawBody, signature, timestamp, discordConfig.publicKey);
+  } catch {
+    return false;
+  }
 }
 
 function handlePing(res: VercelResponse): void {

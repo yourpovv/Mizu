@@ -17,6 +17,15 @@
 4. deploy to [Vercel](https://vercel.com/) with the same env vars set
 5. set the app's Interactions Endpoint URL to `https://<your-app>.vercel.app/api/interactions`
 
+## updating commands
+
+Command definitions live in Discord's directory, not in the deploy — pushing to GitHub only updates the bot's code. After adding, renaming, or editing a command:
+
+1. run `npm run register` **locally** (it reads your local `.env`)
+2. commit and push — Vercel auto-deploys the new code
+
+Handler-only changes (same names, new behavior) need just the push.
+
 ```env
 DISCORD_PUBLIC_KEY=
 DISCORD_APP_ID=
@@ -40,7 +49,7 @@ GREY_ROLE=
 
 ### color role palette
 
-Set each role to its hex in Server Settings → Roles (picked for readability on both light and dark Discord themes):
+Set each role to its hex in Server Settings > Roles:
 
 | role    | hex       |
 |---------|-----------|
@@ -66,6 +75,8 @@ Set each role to its hex in Server Settings → Roles (picked for readability on
 |-----------------|------------------------------------------|
 | `/ping`         | replies with `pong !!`                   |
 | `/color-picker` | posts the color role picker (admin only) |
+
+New or renamed commands take up to an hour to appear (usually minutes). if one is missing, restart Discord to refresh the command list (note admin commands are ran by server admins)
 
 ## stack
 

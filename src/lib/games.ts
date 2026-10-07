@@ -19,19 +19,19 @@ interface GameDefinition extends Omit<GameOption, "roleId"> {
 const GAME_DEFINITIONS: GameDefinition[] = [
   { label: "Roblox", value: "roblox", emoji: "🧱", roleEnvVar: "ROBLOX_ROLE" },
   { label: "Minecraft", value: "minecraft", emoji: "⛏️", roleEnvVar: "MINECRAFT_ROLE" },
-  { label: "Among Us", value: "among-us", emoji: "🧑‍🚀", roleEnvVar: "AMONG_US_ROLE" },
+  { label: "Among Us", value: "among-us", emoji: "🚀", roleEnvVar: "AMONG_US_ROLE" },
   { label: "Meccha Chameleon", value: "meccha-chameleon", emoji: "🦎", roleEnvVar: "MECCHA_CHAMELEON_ROLE" },
-  { label: "Buckshot Roulette", value: "buckshot-roulette", emoji: "🎰", roleEnvVar: "BUCKSHOT_ROULETTE_ROLE" },
-  { label: "Dead by Daylight", value: "dead-by-daylight", emoji: "👻", roleEnvVar: "DEAD_BY_DAYLIGHT_ROLE" },
-  { label: "Phasmophobia", value: "phasmophobia", emoji: "🔦", roleEnvVar: "PHASMOPHOBIA_ROLE" },
-  { label: "R.E.P.O.", value: "repo", emoji: "🤖", roleEnvVar: "REPO_ROLE" },
+  { label: "Buckshot Roulette", value: "buckshot-roulette", emoji: "🔫", roleEnvVar: "BUCKSHOT_ROULETTE_ROLE" },
+  { label: "Dead by Daylight", value: "dead-by-daylight", emoji: "🔪", roleEnvVar: "DEAD_BY_DAYLIGHT_ROLE" },
+  { label: "Phasmophobia", value: "phasmophobia", emoji: "👻", roleEnvVar: "PHASMOPHOBIA_ROLE" },
+  { label: "R.E.P.O.", value: "repo", emoji: "📦", roleEnvVar: "REPO_ROLE" },
   { label: "Terraria", value: "terraria", emoji: "🌳", roleEnvVar: "TERRARIA_ROLE" },
   { label: "Stardew Valley", value: "stardew-valley", emoji: "🌾", roleEnvVar: "STARDEW_VALLEY_ROLE" },
   { label: "Valorant", value: "valorant", emoji: "🎯", roleEnvVar: "VALORANT_ROLE" },
-  { label: "Overwatch", value: "overwatch", emoji: "🦸", roleEnvVar: "OVERWATCH_ROLE" },
-  { label: "Apex Legends", value: "apex-legends", emoji: "🏆", roleEnvVar: "APEX_LEGENDS_ROLE" },
-  { label: "Fortnite", value: "fortnite", emoji: "🚌", roleEnvVar: "FORTNITE_ROLE" },
-  { label: "Lethal Company", value: "lethal-company", emoji: "🪙", roleEnvVar: "LETHAL_COMPANY_ROLE" },
+  { label: "Overwatch", value: "overwatch", emoji: "🛡️", roleEnvVar: "OVERWATCH_ROLE" },
+  { label: "Apex Legends", value: "apex-legends", emoji: "🔺", roleEnvVar: "APEX_LEGENDS_ROLE" },
+  { label: "Fortnite", value: "fortnite", emoji: "🪂", roleEnvVar: "FORTNITE_ROLE" },
+  { label: "Lethal Company", value: "lethal-company", emoji: "🔦", roleEnvVar: "LETHAL_COMPANY_ROLE" },
 ];
 
 export function loadGameOptions(

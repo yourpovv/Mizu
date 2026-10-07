@@ -12,6 +12,15 @@ import {
   type ColorSelectInteraction,
 } from "../src/lib/color-select.js";
 import {
+  buildGamePicker,
+  GAME_OPEN_CUSTOM_ID,
+  GAME_SELECT_CUSTOM_ID,
+} from "../src/lib/games.js";
+import {
+  handleGamePingsOpen,
+  handleGameSelect,
+} from "../src/lib/game-select.js";
+import {
   handleEmbedCommand,
   handleEmbedConfirm,
   handleEmbedModalSubmit,
@@ -91,11 +100,20 @@ function handleColorsCommand(res: VercelResponse): void {
   });
 }
 
+function handleGamesCommand(res: VercelResponse): void {
+  res.status(200).json({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: buildGamePicker(),
+  });
+}
+
 const componentHandlers: Record<
   string,
   (interaction: ColorSelectInteraction, res: VercelResponse) => Promise<void>
 > = {
   [COLOR_CUSTOM_ID]: handleColorSelect,
+  [GAME_OPEN_CUSTOM_ID]: handleGamePingsOpen,
+  [GAME_SELECT_CUSTOM_ID]: handleGameSelect,
 };
 
 function handleCredits(res: VercelResponse): void {
@@ -147,6 +165,14 @@ export default async function handler(
     interaction.data?.name === "color-picker"
   ) {
     handleColorsCommand(res);
+    return;
+  }
+
+  if (
+    interaction.type === InteractionType.APPLICATION_COMMAND &&
+    interaction.data?.name === "game-picker"
+  ) {
+    handleGamesCommand(res);
     return;
   }
 

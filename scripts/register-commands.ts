@@ -1,5 +1,6 @@
 import { Credits } from "../src/commands/credits.js";
 import { ColorPicker } from "../src/commands/colors.js";
+import { GamePicker } from "../src/commands/games.js";
 import { Embed } from "../src/commands/embed.js";
 import { requiredEnv } from "../src/lib/env.js";
 
@@ -15,7 +16,7 @@ async function registerCommands(): Promise<void> {
         Authorization: `Bot ${botToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify([Credits, ColorPicker, Embed]),
+      body: JSON.stringify([Credits, ColorPicker, GamePicker, Embed]),
     },
   );
 
@@ -24,7 +25,7 @@ async function registerCommands(): Promise<void> {
     throw new Error(`Command registration failed: ${detail}`);
   }
 
-  console.log("Registered /credits, /color-picker and /embed");
+  console.log("Registered /credits, /color-picker, /game-picker and /embed");
 }
 
 registerCommands().catch((error: unknown) => {

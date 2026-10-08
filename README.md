@@ -4,6 +4,7 @@
 **Community server bot made for Sleepy's Server**
 
 <img width="1200" height="400" alt="image" src="assets/banner.png" />
+<img width="3840" height="2160" alt="Invite Background 2" src="https://github.com/user-attachments/assets/7bfd01ef-309d-47cc-a17c-9ae159a4c9ea" />
 
 </div>
 
